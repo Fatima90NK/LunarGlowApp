@@ -53,7 +53,9 @@ module.exports = async function db(query) {
           // such as when the query ends with SELECT LAST_INSERT_ID() and returns an insertId)
           results.data.push(result[0]);
         }
-
+        else {
+          result.forEach(row => results.data.push(row));
+        }
         con.end();
         resolve(results);
       });

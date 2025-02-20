@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
+var indexRouter = require('./routes/index');//index file in the route folder
 var usersRouter = require('./routes/users');
 
 var app = express();
@@ -19,8 +19,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api', indexRouter);//route of the request that we will receive
+//we want to send the request is equal to slash /api
+//when we receive request starting with /api we want to go to indexrouter
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
