@@ -14,12 +14,13 @@ function App() {
 
   //Code for requesting user's location
   useEffect(() => {
-    console.log(navigator.geolocation.getCurrentPosition((position)=>{
+    navigator.geolocation.getCurrentPosition((position) => {
       setLongitude(position.coords.longitude);
-        setLatitude(position.coords.latitude);
-        setMoonData(position.coords.moonData);
-        setlocationError(null);
-      }));},[])
+      setLatitude(position.coords.latitude);
+      setlocationError(null);
+    });
+
+},[])
  
 
   async function getData() {
@@ -32,6 +33,7 @@ function App() {
       }
   
       const json = await response.json();
+      console.log(json)
       setMoonData(json.days[0]);
     } catch (error) {
       console.error(error.message);
@@ -48,7 +50,9 @@ function App() {
       <div>
         <p>longitude {longitude},</p>
         <p>latitude {latitude}</p>
-        <p>Moon Data {moonData},</p>
+        <p>Moon Data,</p>
+
+        <button onClick={getData}> Click me! </button>
       </div>
     </>
   )
