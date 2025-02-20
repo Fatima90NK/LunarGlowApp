@@ -78,7 +78,8 @@ function App() {
     if (moonphase === 0) {
     } return "image url";
     //waning gibbous moon is between 0.00 & 0.25
-      if (moonphase > 0 && moonphase < 0.25) return "image url";
+      if (moonphase > 0 && moonphase < 0.25) 
+        return ;
       //Last Quarter Moon is equal to 0.25
         if (moonphase === 0.25) return "image url";
         //waning crescent moon is between 0.25 and 0.50
@@ -88,8 +89,11 @@ function App() {
             //waxing crescent moon is between 0.50 and 0.75
               if (moonphase > 0.50 && moonphase < 0.75) return "image url";
                 if (moonphase === 0) return "image url";
-                  if (moonphase === 0) return "image url";
-                    if (moonphase === 0) return "image url";
+                //First Quarter Moon is equal to 0.75
+                  if (moonphase === 0.75) 
+                    return "https://i0.wp.com/starinastar.com/wp-content/uploads/2017/01/IMG_0891.png";
+                  //Waxing Gibbous Moon is between 0.75 and 1.00
+                    if (moonphase > 0.75 && moonphase < 1.00) return "image url";
   }
   
   console.log(moonData);
@@ -109,7 +113,9 @@ function App() {
       </div>
   )}
   {moonData && (
-      <div>
+    <div>
+     <img src={getMoonImage(moonData.moonphase)} alt="Moon Phase" width="100"/>
+      
       <p>Moon Phase {moonData.moonphase !== undefined ? moonData.moonphase: "Not available"}</p>
       <p>Moonrise {moonData.moonrise ? moonData.moonrise: "Not available"}</p>
       <p>Moonset {moonData.moonset ? moonData.moonset : "Not available"}</p>
