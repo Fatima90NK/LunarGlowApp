@@ -18,47 +18,25 @@ function App() {
 
   //Gives me the users location
   useEffect(() => {
-    async function getData() {
-      console.log({longitude, latitude})
-      const APIkey = "ZG5V5DBKMD9CUQNPSFZWSNMAF";
-      const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude},${longitude}?unitGroup=us&key=${APIkey}&include=days&elements=datetime,moonphase,moonrise,moonset`;
-      
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`Response status: ${response.status}`);
-        }
-    
-        const json = await response.json();
-        setMoonData(json.days[0]);
-        console.log("API Response", json);
-      } catch (error) {
-        console.error(error.message);
-      }
-    }
+
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position)=> {
-      setLongitude(position.coords.longitude);
+        setLongitude(position.coords.longitude);
         setLatitude(position.coords.latitude);
-        //console.log(setMoonData[position.coords])
-       
-        setlocationError(null);
+        setlocationError(null)
       },
       (error) => {
         setlocationError("Location access denied. Please allow location access.");
         console.error("Geolocation error:", error.message);
-      }
-    );
-  } else {
-    setlocationError("Geolocation is not supported in this browser.")
-  }
+      });
+    } else {
+      setlocationError("Geolocation is not supported in this browser.")
+    }
 
-  if (latitude !== null && longitude !== null) {
-    getData();
-  }
-  return () => {
-
-  };
+    if (latitude !== null && longitude !== null) {
+      getData();
+      getFunFacts()
+    }
 
   }, [longitude, latitude]);
 //understand the phases of Nasa: https://science.nasa.gov/moon/moon-phases/
@@ -95,7 +73,36 @@ function App() {
                   //Waxing Gibbous Moon is between 0.75 and 1.00
                     if (moonphase > 0.75 && moonphase < 1.00) return "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Lune-Nikon-600-F4_Luc_Viatour.jpg/1920px-Lune-Nikon-600-F4_Luc_Viatour.jpg";
   }
+
+
+  async function getData() {
+    console.log({longitude, latitude})
+    const APIkey = "ZG5V5DBKMD9CUQNPSFZWSNMAF";
+    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude},${longitude}?unitGroup=us&key=${APIkey}&include=days&elements=datetime,moonphase,moonrise,moonset`;
+    
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
   
+      const json = await response.json();
+      setMoonData(json.days[0]);
+      console.log("API Response", json);
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+
+  async function getFunFacts() {
+    try {
+
+    } catch (err) {
+
+    }
+  }
+
   console.log(moonData);
 
   return (
