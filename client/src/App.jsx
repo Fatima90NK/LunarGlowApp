@@ -76,28 +76,26 @@ function App() {
   function getMoonImage(moonphase) {
     //full moon is equal to 0 
     if (moonphase === 0) {
-    } return "image url";
+    } return "https://upload.wikimedia.org/wikipedia/commons/b/b5/20110319_Supermoon.jpg";
     //waning gibbous moon is between 0.00 & 0.25
       if (moonphase > 0 && moonphase < 0.25) 
-        return ;
+        return "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/2013-01-02_00-00-55-Waning-gibbous-moon.jpg/1920px-2013-01-02_00-00-55-Waning-gibbous-moon.jpg";
       //Last Quarter Moon is equal to 0.25
-        if (moonphase === 0.25) return "image url";
+        if (moonphase === 0.25) return "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Waning_gibbous_moon_near_last_quarter_-_23_Sept._2016.png/1920px-Waning_gibbous_moon_near_last_quarter_-_23_Sept._2016.png";
         //waning crescent moon is between 0.25 and 0.50
-          if (moonphase > 0 && moonphase < 0.50) return "image url";
+          if (moonphase > 0 && moonphase < 0.50) return "https://upload.wikimedia.org/wikipedia/commons/3/35/Waning_Crescent_Moon%287Sep15%29.jpg";
           //new moon is equal to 0.50
-            if (moonphase === 0.50) return "image url";
+            if (moonphase === 0.50) return "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/New_Moon.jpg/1280px-New_Moon.jpg";
             //waxing crescent moon is between 0.50 and 0.75
-              if (moonphase > 0.50 && moonphase < 0.75) return "image url";
-                if (moonphase === 0) return "image url";
+              if (moonphase > 0.50 && moonphase < 0.75) return "https://upload.wikimedia.org/wikipedia/commons/e/e3/Waxing_Crescent_Moon_on_4-1-17_%2833627493622%29.jpg";
                 //First Quarter Moon is equal to 0.75
                   if (moonphase === 0.75) 
-                    return "https://i0.wp.com/starinastar.com/wp-content/uploads/2017/01/IMG_0891.png";
+                    return "https://upload.wikimedia.org/wikipedia/commons/4/4d/Daniel_Hershman_-_march_moon_%28by%29.jpg";
                   //Waxing Gibbous Moon is between 0.75 and 1.00
-                    if (moonphase > 0.75 && moonphase < 1.00) return "image url";
+                    if (moonphase > 0.75 && moonphase < 1.00) return "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Lune-Nikon-600-F4_Luc_Viatour.jpg/1920px-Lune-Nikon-600-F4_Luc_Viatour.jpg";
   }
   
   console.log(moonData);
-  console.log()
 
   return (
     <>
