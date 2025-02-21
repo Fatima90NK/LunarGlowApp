@@ -76,7 +76,8 @@ function App() {
   function getMoonImage(moonphase) {
     //full moon is equal to 0 
     if (moonphase === 0) {
-    } return "https://upload.wikimedia.org/wikipedia/commons/b/b5/20110319_Supermoon.jpg";
+      return "https://upload.wikimedia.org/wikipedia/commons/b/b5/20110319_Supermoon.jpg";
+    }
     //waning gibbous moon is between 0.00 & 0.25
       if (moonphase > 0 && moonphase < 0.25) 
         return "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/2013-01-02_00-00-55-Waning-gibbous-moon.jpg/1920px-2013-01-02_00-00-55-Waning-gibbous-moon.jpg";
