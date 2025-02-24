@@ -1,3 +1,9 @@
+body {
+  height: 100%;
+  background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+  overflow: hidden;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -5,38 +11,206 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cff7b);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #b1a7a7aa);
+/* Stars */
+#stars, #stars:after, 
+#stars2, #stars2:after, 
+#stars3, #stars3:after {
+  position: absolute;
+  background: transparent;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
 }
 
-@keyframes logo-spin {
+/* Small stars */
+#stars {
+  width: 1px;
+  height: 1px;
+  box-shadow: 
+    500px 800px #FFF, 1200px 1500px #FFF, 1900px 300px #FFF, 250px 700px #FFF, 
+    800px 1000px #FFF, 1500px 1300px #FFF, 200px 1500px #FFF, 400px 1200px #FFF,
+    1800px 1600px #FFF, 300px 500px #FFF, 1600px 400px #FFF, 1200px 1800px #FFF,
+    1100px 500px #FFF, 700px 1600px #FFF, 300px 1100px #FFF, 500px 1600px #FFF,
+    200px 900px #FFF, 1500px 1800px #FFF, 1200px 700px #FFF, 900px 1100px #FFF,
+    1700px 800px #FFF, 1300px 1500px #FFF, 1800px 1000px #FFF, 600px 1100px #FFF;
+  animation: animStar 50s linear infinite;
+}
+
+#stars:after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+  width: 1px;
+  height: 1px;
+  box-shadow: 
+    500px 800px #FFF, 1200px 1500px #FFF, 1900px 300px #FFF, 250px 700px #FFF, 
+    800px 1000px #FFF, 1500px 1300px #FFF, 200px 1500px #FFF, 400px 1200px #FFF,
+    1800px 1600px #FFF, 300px 500px #FFF, 1600px 400px #FFF, 1200px 1800px #FFF,
+    1100px 500px #FFF, 700px 1600px #FFF, 300px 1100px #FFF, 500px 1600px #FFF,
+    200px 900px #FFF, 1500px 1800px #FFF, 1200px 700px #FFF, 900px 1100px #FFF,
+    1700px 800px #FFF, 1300px 1500px #FFF, 1800px 1000px #FFF, 600px 1100px #FFF;
+}
+
+/* Medium stars */
+#stars2 {
+  width: 2px;
+  height: 2px;
+  box-shadow: 
+    600px 900px #FFF, 1100px 1600px #FFF, 1700px 500px #FFF, 350px 750px #FFF,
+    1000px 1100px #FFF, 1500px 1400px #FFF, 2000px 1000px #FFF, 700px 800px #FFF,
+    1800px 1200px #FFF, 500px 1600px #FFF, 1400px 900px #FFF, 300px 1300px #FFF,
+    600px 1000px #FFF, 1200px 500px #FFF, 1700px 1500px #FFF, 1300px 300px #FFF,
+    1100px 800px #FFF, 2000px 1200px #FFF, 1500px 500px #FFF, 500px 1300px #FFF,
+    1600px 1000px #FFF, 800px 600px #FFF, 1000px 500px #FFF, 1500px 1300px #FFF;
+  animation: animStar 100s linear infinite;
+}
+
+#stars2:after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+  width: 2px;
+  height: 2px;
+  box-shadow: 
+    600px 900px #FFF, 1100px 1600px #FFF, 1700px 500px #FFF, 350px 750px #FFF,
+    1000px 1100px #FFF, 1500px 1400px #FFF, 2000px 1000px #FFF, 700px 800px #FFF,
+    1800px 1200px #FFF, 500px 1600px #FFF, 1400px 900px #FFF, 300px 1300px #FFF,
+    600px 1000px #FFF, 1200px 500px #FFF, 1700px 1500px #FFF, 1300px 300px #FFF,
+    1100px 800px #FFF, 2000px 1200px #FFF, 1500px 500px #FFF, 500px 1300px #FFF,
+    1600px 1000px #FFF, 800px 600px #FFF, 1000px 500px #FFF, 1500px 1300px #FFF;
+}
+
+/* Big stars */
+#stars3 {
+  width: 3px;
+  height: 3px;
+  box-shadow: 
+    700px 1000px #FFF, 1300px 1400px #FFF, 1800px 400px #FFF, 450px 800px #FFF,
+    1100px 1300px #FFF, 1500px 1600px #FFF, 900px 1200px #FFF, 2000px 1500px #FFF,
+    800px 1100px #FFF, 1300px 1500px #FFF, 1600px 1000px #FFF, 1200px 500px #FFF,
+    1500px 700px #FFF, 1700px 1100px #FFF, 1800px 600px #FFF, 1000px 1200px #FFF,
+    1600px 1300px #FFF, 1300px 800px #FFF, 1900px 1000px #FFF, 700px 1500px #FFF;
+  animation: animStar 150s linear infinite;
+}
+
+#stars3:after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+  width: 3px;
+  height: 3px;
+  box-shadow: 
+    700px 1000px #FFF, 1300px 1400px #FFF, 1800px 400px #FFF, 450px 800px #FFF,
+    1100px 1300px #FFF, 1500px 1600px #FFF, 900px 1200px #FFF, 2000px 1500px #FFF,
+    800px 1100px #FFF, 1300px 1500px #FFF, 1600px 1000px #FFF, 1200px 500px #FFF,
+    1500px 700px #FFF, 1700px 1100px #FFF, 1800px 600px #FFF, 1000px 1200px #FFF,
+    1600px 1300px #FFF, 1300px 800px #FFF, 1900px 1000px #FFF, 700px 1500px #FFF;
+}
+
+@keyframes glow {
+  0% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6); }
+  50% { text-shadow: 0 0 15px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.9); }
+  100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6); }
+}
+
+/* Title */
+#title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  color: #FFF;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 50px;
+  letter-spacing: 10px;
+  margin-top: -60px; /* Adjusts spacing from the top */
+  padding-left: 0px; /* Ensures it's above other elements */
+  animation: glow 1.5s infinite alternate;
+}
+
+#title span {
+  background: -webkit-linear-gradient(white, #38495a);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Star animation */
+@keyframes animStar {
   from {
-    transform: rotate(0deg);
+    transform: translateY(0px);
   }
   to {
-    transform: rotate(360deg);
+    transform: translateY(-3000px);
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: unsafe center;
+  align-items: center;
+  text-align: center;
+  width: auto;
+  min-height: 75%;
+  padding: 10px;
 }
 
-.card {
-  padding: 2em;
+.logo {
+  width: 160px;
+  height: auto;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+
 }
 
-.read-the-docs {
-  color: #888;
+.open-sidebar-btn {
+  background: #bb7802;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
 }
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -450px; /* Hidden by default */
+  width: 400px;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.9);
+  padding: 20px;
+  box-shadow: 3px 0px 10px rgba(0, 0, 0, 0.5);
+  transition: left 0.3s ease-in-out;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.close-btn {
+  background: rgb(167, 103, 0);
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+/*
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s ease-in-out;
+}*/

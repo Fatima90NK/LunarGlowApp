@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react'
-import './App.css'
+import { useState, useEffect } from 'react';
+import './App.css';
+import LocationInfo from './LocationInfo';
+//import './components/calendar.jsx'
+
 //import MoonPhaseDisplay from '../components/MoonPhaseDisplay';
 //i need to link pictures with the moon phase
-//1) i create a function with a condition inside it. 
-// { 0.75: "Waxing Gibbou" }
-// const moonphases = { 75: 'waxing gibbous'}
-// moonphases[75]
 
 //between parenthises is call the function
 
@@ -15,6 +14,7 @@ function App() {
   const [latitude,setLatitude] = useState(null);
   const [moonData,setMoonData] = useState(null);
   const [locationError,setlocationError] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   //Gives me the users location
   useEffect(() => {
@@ -33,12 +33,15 @@ function App() {
       setlocationError("Geolocation is not supported in this browser.")
     }
 
+  //useEffect(() => {
     if (latitude !== null && longitude !== null) {
+      //getLocationName()
       getData();
-      getFunFacts()
+      //getFunFacts()
     }
 
   }, [longitude, latitude]);
+
 //understand the phases of Nasa: https://science.nasa.gov/moon/moon-phases/
 //using if statement condition for coding: https://www2.arnes.si/~gljsentvid10/constellations/MoonPhase.html
 //1) if full moon is equal to 0 return full moon image
@@ -62,7 +65,7 @@ function App() {
       //Last Quarter Moon is equal to 0.25
         if (moonphase === 0.25) return "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Waning_gibbous_moon_near_last_quarter_-_23_Sept._2016.png/1920px-Waning_gibbous_moon_near_last_quarter_-_23_Sept._2016.png";
         //waning crescent moon is between 0.25 and 0.50
-          if (moonphase > 0 && moonphase < 0.50) return "https://upload.wikimedia.org/wikipedia/commons/3/35/Waning_Crescent_Moon%287Sep15%29.jpg";
+          if (moonphase > 0.25 && moonphase < 0.50) return "https://upload.wikimedia.org/wikipedia/commons/3/35/Waning_Crescent_Moon%287Sep15%29.jpg";
           //new moon is equal to 0.50
             if (moonphase === 0.50) return "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/New_Moon.jpg/1280px-New_Moon.jpg";
             //waxing crescent moon is between 0.50 and 0.75
@@ -74,6 +77,19 @@ function App() {
                     if (moonphase > 0.75 && moonphase < 1.00) return "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Lune-Nikon-600-F4_Luc_Viatour.jpg/1920px-Lune-Nikon-600-F4_Luc_Viatour.jpg";
   }
 
+  function getMoonPhaseLabel(moonPhase) {
+    if (moonPhase === undefined) return { phase: "Not available", description: "Moon phase data is not available." };
+    if (moonPhase === 0 || moonPhase === 1) return { phase: "Full Moon", description: "The Full Moon phase is when the whole face of the moon is illuminated for all to see, due to the fact that the sun and moon are on opposite sides of the earth. The Full Moon phase is thought to be the most powerful of all the moon phases. It brings with it a time to harvest intentions set, celebrate achievement and reap reward. The Full moon is often compared as the Yin to the Yang of the New Moon and as such can represent a period of closure and coming full circle." };
+    if (moonPhase > 0 && moonPhase < 0.25) return { phase: "Waning Crescent Moon", description: "This phase is when the moon returns to being an illuminated crescent shape and is the final phase before it enters the new moon period. A Waning Crescent Moon is the perfect time to rest and regenerate. Its a period of self-care; to find inner peace and reconnect with yourself, surrendering all that has happened that is out of our control, before the lunar cycle begins again." };
+    if (moonPhase === 0.25) return { phase: "Last Quarter", description: "This is when the moon is illuminated on the left hand side, it is back to its half power phase. This is the time to cleanse yourself, a time to release negativity and old habits that bind you. Let go of all that no longer serves you." };
+    if (moonPhase > 0.25 && moonPhase < 0.5) return { phase: "Waning Crescent Moon", description: "Moon phase data is not available." };
+    if (moonPhase === 0.5) return { phase: "New Moon", description: "This first phase is when the moon is barely visible, due to the fact that the sun and the moon are on the same side of the earth. This is often referred to as the dark side of the Moon. The New Moon phase is synonymous with fresh starts, limitless possibility and rejuvenation. Its the perfect opportunity to reflect on what has passed, learn from it and put it behind you, as you refresh and begin again."};
+    if (moonPhase > 0.5 && moonPhase < 0.75) return { phase: "Waxing Crescent Moon", description: "This phase is when the right side of the moon is illuminated, as the sun beings to move from behind the moon creating a crescent shape. The Waxing Crescent phase is often referred to as the rebuilding phase. Once the moon has re-emerged with new energy, it is the perfect time to set new intentions for the month ahead and work on self-improvement." };
+    if (moonPhase === 0.75) return { phase: "First Quarter Moon", description: "During this moon phase, the whole of the right side is illuminated due to the sun and the moon being side by side.The First Quarter Moon phase is often a period where obstacles tend to raise their head and where decisions need to be made. This not a time to hesitate, but a time remove any obstacles and push forward." };
+    if (moonPhase > 0.75 && moonPhase < 1) return { phase: "Waxing Gibbous Moon", description: "During this penultimate phase before a Full Moon, only a tiny portion of the moons surface is kept in darkness. Its at this time when you are most likely to see the moon during the day. The Waxing Gibbous Moon phase is a time for reflection. Its a time to look back on the life lessons you have learnt and the internal growth that has come from them and use this to adjust your current goals and life path accordingly."};
+
+    return { phase: "Unknown", description: "Unable to determine moon phase." };
+}
 
   async function getData() {
     console.log({longitude, latitude})
@@ -95,38 +111,64 @@ function App() {
   }
 
 
-  async function getFunFacts() {
-    try {
+  //async function getFunFacts() {
+    //try {
+      
+     // }
 
-    } catch (err) {
-
-    }
-  }
+    // catch (err) {
 
   console.log(moonData);
+  
 
   return (
     <>
+     <h1 id="title">Lunar Glow</h1>
+     {locationError && <p>{locationError}</p>}
+        {latitude !== null && longitude !== null && (
+          <div className="container">
+          <LocationInfo latitude={latitude} longitude={longitude} />
+        </div>
+  )}
       <div className="App">
           <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Moon_rotating_full_160px.gif" className="logo" alt="Moon logo" />
+
+          <p><button className="open-sidebar-btn" onClick={() => setIsSidebarOpen(true)}>
+        ☰ Open Sidebar
+      </button></p>
+      <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
+        <button className="close-btn" onClick={() => setIsSidebarOpen(false)}>✖</button>
+        <h2>🌙 Today's Lunar Cycle</h2>
+        <p>{getMoonPhaseLabel(moonData?.moonphase).description}</p>
       </div>
-      <h1>Moon Phase</h1>
-      {locationError && <p>{locationError}</p>}
-        {latitude !== null && longitude !== null && (
-      <div>
-        <p>longitude {longitude}</p>
-        <p>latitude {latitude}</p>
+      {isSidebarOpen && <div className="overlay" onClick={() => setIsSidebarOpen(false)}></div>}
       </div>
-  )}
+     
   {moonData && (
-    <div>
-     <img src={getMoonImage(moonData.moonphase)} alt="Moon Phase" width="100"/>
-      
-      <p>Moon Phase {moonData.moonphase !== undefined ? moonData.moonphase: "Not available"}</p>
-      <p>Moonrise {moonData.moonrise ? moonData.moonrise: "Not available"}</p>
-      <p>Moonset {moonData.moonset ? moonData.moonset : "Not available"}</p>
-      </div>
+    <div className='moon-phase'>
+      <p>Today's moon phase is <strong>{getMoonPhaseLabel(moonData.moonphase).phase} </strong></p>
+      <img src={getMoonImage(moonData.moonphase)} alt="Moon Phase" width="100"/>
+      <div className="container">
+      <p><strong>Moonrise at: </strong> {moonData.moonrise ? moonData.moonrise: "Not available"}</p>
+      <p><i>Moonrise is the moment when the Moon becomes visible on the horizon, marking its emergence in the sky.</i></p>
+      <p><strong>Moonset at:</strong> {moonData.moonset ? moonData.moonset : "Not available"}</p>
+      <p><i>Moonset occurs when the Moon dips below the horizon, marking its disappearance from view. </i></p>
+    </div>
+    </div>
   )}
+
+  <>
+  <link
+    href="https://fonts.googleapis.com/css?family=Lato:300,400,700"
+    rel="stylesheet"
+    type="text/css"
+  />
+</>
+  <div>
+      <div id="stars"></div>
+      <div id="stars2"></div>
+      <div id="stars3"></div>
+    </div>
     </>
   );
 }
