@@ -19,21 +19,7 @@ Lunar Glow is a React + Node.js application that shows the current moon phase fo
 
 ## Project Structure
 
-MoonPhaseProject/
-├─ backend/
-│  ├─ app.js           # Express backend server
-│  ├─ routes/
-│  │  ├─ moon.js       # Moon API endpoint
-│  │  ├─ index.js
-│  │  └─ funfacts.js
-│  └─ database.js      # MongoDB connection
-├─ frontend/
-│  ├─ src/
-│  │  ├─ App.jsx       # React main app
-│  │  └─ LocationInfo.jsx
-│  └─ package.json
-├─ package.json        # Root (optional if separate)
-└─ README.md
+<pre> ```text MoonPhaseProject/ ├─ backend/ │ ├─ app.js # Express backend server │ ├─ routes/ │ │ ├─ moon.js # Moon API endpoint │ │ ├─ index.js │ │ └─ funfacts.js │ └─ database.js # MongoDB connection ├─ frontend/ │ ├─ src/ │ │ ├─ App.jsx # React main app │ │ └─ LocationInfo.jsx │ └─ package.json ├─ package.json # Root (optional if separate) └─ README.md ``` </pre>
 
 ## Setup Instructions
 
@@ -99,11 +85,18 @@ React will open in your browser at `http://localhost:3000`. It fetches data from
 * Moon data is cached in MongoDB by **latitude, longitude, and date**, so each day’s data is only fetched once.
 * If you restart MongoDB, old cached data is lost.
 
-### 7. Optional Improvements
+### 7. Future Improvements Plan
 
 * Use **Docker Compose** to run backend + MongoDB together.
 * Deploy frontend and backend together (backend serves React build).
 * Add **user accounts** to store favorite locations.
-* Use **machine learning** to predict moonrise/set for future dates (advanced).
+* Use **machine learning** to predict moonrise/set for future dates.
+* Add **Fun facts Moon in the sidebar** for educational purpose.
 
 ### License
+
+© 2025 FatimaNK90. All rights reserved.  
+
+This repository is for **educational and personal use only**. You may view and study the code, but **you may not copy, distribute, modify, or use it for commercial purposes** without explicit written permission from the author.
+
+
