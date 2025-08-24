@@ -80,7 +80,7 @@ function App() {
   function getMoonPhaseLabel(moonPhase) {
     if (moonPhase === undefined) return { phase: "Not available", description: "Moon phase data is not available." };
     if (moonPhase === 0 || moonPhase === 1) return { phase: "Full Moon", description: "The Full Moon phase is when the whole face of the moon is illuminated for all to see, due to the fact that the sun and moon are on opposite sides of the earth. The Full Moon phase is thought to be the most powerful of all the moon phases. It brings with it a time to harvest intentions set, celebrate achievement and reap reward. The Full moon is often compared as the Yin to the Yang of the New Moon and as such can represent a period of closure and coming full circle." };
-    if (moonPhase > 0 && moonPhase < 0.25) return { phase: "Waning Crescent Moon", description: "This phase is when the moon returns to being an illuminated crescent shape and is the final phase before it enters the new moon period. A Waning Crescent Moon is the perfect time to rest and regenerate. Its a period of self-care; to find inner peace and reconnect with yourself, surrendering all that has happened that is out of our control, before the lunar cycle begins again." };
+    if (moonPhase > 0.25 && moonPhase < 0.50) return { phase: "Waning Crescent Moon", description: "This phase is when the moon returns to being an illuminated crescent shape and is the final phase before it enters the new moon period. A Waning Crescent Moon is the perfect time to rest and regenerate. Its a period of self-care; to find inner peace and reconnect with yourself, surrendering all that has happened that is out of our control, before the lunar cycle begins again." };
     if (moonPhase === 0.25) return { phase: "Last Quarter", description: "This is when the moon is illuminated on the left hand side, it is back to its half power phase. This is the time to cleanse yourself, a time to release negativity and old habits that bind you. Let go of all that no longer serves you." };
     if (moonPhase > 0.25 && moonPhase < 0.5) return { phase: "Waning Crescent Moon", description: "Moon phase data is not available." };
     if (moonPhase === 0.5) return { phase: "New Moon", description: "This first phase is when the moon is barely visible, due to the fact that the sun and the moon are on the same side of the earth. This is often referred to as the dark side of the Moon. The New Moon phase is synonymous with fresh starts, limitless possibility and rejuvenation. Its the perfect opportunity to reflect on what has passed, learn from it and put it behind you, as you refresh and begin again."};
@@ -92,19 +92,15 @@ function App() {
 }
 
   async function getData() {
-    console.log({longitude, latitude})
-    const APIkey = "ZG5V5DBKMD9CUQNPSFZWSNMAF";
-    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude},${longitude}?unitGroup=us&key=${APIkey}&include=days&elements=datetime,moonphase,moonrise,moonset`;
-    
+    if (latitude === null || longitude === null) return;
+
     try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-      }
-  
+      const response = await fetch(`http://localhost:3000/api/moon/${latitude}/${longitude}`);
+      if (!response.ok) throw new Error(`Response status: ${response.status}`);
+      
       const json = await response.json();
-      setMoonData(json.days[0]);
-      console.log("API Response", json);
+      setMoonData(json);
+      console.log("MongoDB + backend response", json);
     } catch (error) {
       console.error(error.message);
     }

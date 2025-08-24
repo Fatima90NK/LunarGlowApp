@@ -1,6 +1,7 @@
 {
   "name": "my-react-app",
   "version": "0.0.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
@@ -14,8 +15,29 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
+    "mongodb": "^6.18.0",
     "morgan": "~1.9.1",
     "mysql2": "^3.12.0",
+    "node-fetch": "^3.3.2",
     "nodemon": "^3.1.9"
-  }
+  },
+  "date": "2025-08-23",
+  "phase": 0.75,
+  "phaseName": "First Quarter Moon",
+  "description": "...",
+  "imageUrl": "https://..."
+},
+  "description": "Explanation about the app, what does it show. Steps that are needed to run my app the external API i use, if API key is needed.  List of features",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fatima90NK/MoonPhaseProject.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fatima90NK/MoonPhaseProject/issues"
+  },
+  "homepage": "https://github.com/Fatima90NK/MoonPhaseProject#readme"
 }
