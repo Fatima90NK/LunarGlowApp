@@ -1,6 +1,6 @@
 # Lunar Glow 🌙
 
-Lunar Glow is a React + Node.js application that shows the current moon phase for your location, along with moonrise and moonset times. The app stores moon data in MongoDB to avoid repeated API calls and improve performance.
+Lunar Glow is a React + Node.js application that shows the current moon phase for your location, along with moonrise and moonset times. The app stores moon data in MongoDB to avoid repeated API calls and improve performance. This was my first MVP project as part of a fullstack development program, I followed. 
 
 ## Features
 
@@ -19,7 +19,23 @@ Lunar Glow is a React + Node.js application that shows the current moon phase fo
 
 ## Project Structure
 
-<pre> ```text MoonPhaseProject/ ├─ backend/ │ ├─ app.js # Express backend server │ ├─ routes/ │ │ ├─ moon.js # Moon API endpoint │ │ ├─ index.js │ │ └─ funfacts.js │ └─ database.js # MongoDB connection ├─ frontend/ │ ├─ src/ │ │ ├─ App.jsx # React main app │ │ └─ LocationInfo.jsx │ └─ package.json ├─ package.json # Root (optional if separate) └─ README.md ``` </pre>
+```
+MoonPhaseProject/
+├─ backend/
+│ ├─ app.js # Express backend server
+│ ├─ routes/
+│ │ ├─ moon.js # Moon API endpoint
+│ │ ├─ index.js
+│ │ └─ funfacts.js
+│ └─ database.js # MongoDB connection
+├─ frontend/
+│ ├─ src/
+│ │ ├─ App.jsx # React main app
+│ │ └─ LocationInfo.jsx
+│ └─ package.json
+├─ package.json # Root (optional if separate)
+└─ README.md
+```
 
 ## Setup Instructions
 
@@ -95,7 +111,7 @@ React will open in your browser at `http://localhost:3000`. It fetches data from
 
 ### License
 
-© 2025 FatimaNK90. All rights reserved.  
+© 2025 Fatima90NK - Fatima Khodabaks. All rights reserved.  
 
 This repository is for **educational and personal use only**. You may view and study the code, but **you may not copy, distribute, modify, or use it for commercial purposes** without explicit written permission from the author.
 
