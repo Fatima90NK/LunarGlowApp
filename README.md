@@ -109,10 +109,19 @@ React will open in your browser at `http://localhost:3000`. It fetches data from
 * Use **machine learning** to predict moonrise/set for future dates.
 * Add **Fun facts Moon in the sidebar** for educational purpose.
 
-### License
+## License
 
-© 2025 Fatima90NK - Fatima Khodabaks. All rights reserved.  
+© 2025 Fatima90NK - Fatima Khodabaks.
 
-This repository is for **educational and personal use only**. You may view and study the code, but **you may not copy, distribute, modify, or use it for commercial purposes** without explicit written permission from the author.
+This project is **dual-licensed**:
+
+- **GNU GPL v3** (see LICENSE): free to use, modify, and distribute, provided
+  that derivative works are also licensed under GPL.
+- **Commercial License** (see LICENSE_COMMERCIAL.txt): for organizations who
+  want to use LunarGlowApp in proprietary or closed-source software without
+  the obligations of the GPL.
+
+If you are interested in a commercial license, please contact:
+fatima_nuri90k@hotmail.com
 
 
