@@ -1,0 +1,13 @@
+Commercial License for Lunar Glow App
+---------------------------------
+Copyright (c) 2025 Fatima90NK - Fatima Khodabaks
+
+Permission is granted to the licensee to use, modify, and distribute
+this software in proprietary or closed-source projects, provided that a
+valid commercial license has been purchased from the author.
+
+Without such an agreement, use of this software is governed by the
+GNU General Public License v3 (see LICENSE).
+
+To obtain a commercial license, please contact:
+fatima_nuri90k@hotmail.com
