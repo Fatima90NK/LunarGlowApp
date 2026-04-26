@@ -20,7 +20,7 @@ router.get('/:lat/:lon', async (req, res) => { // Route to get moon data for spe
     if (cached) return res.json(cached);
 
     // Fetch from external API
-    const APIkey = "REDACTED";
+    const APIkey = process.env.VISUAL_CROSSING_API_KEY;
     const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=us&key=${APIkey}&include=days&elements=datetime,moonphase,moonrise,moonset`;
 //    console.log("Fetching from URL:", url);
     const response = await fetch(url);// Making the API request
