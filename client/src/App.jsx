@@ -95,7 +95,7 @@ function App() {
     if (latitude === null || longitude === null) return;
 
     try {
-      const response = await fetch(`http://localhost:3000/api/moon/${latitude}/${longitude}`);
+      const response = await fetch(`/api/moon/${latitude}/${longitude}`);
       if (!response.ok) throw new Error(`Response status: ${response.status}`);
       
       const json = await response.json();
