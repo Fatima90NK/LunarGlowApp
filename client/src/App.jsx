@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import LocationInfo from './LocationInfo';
+import { getMoonImageUrl, getMoonPhaseLabel } from './moon/moonPhase';
 //import './components/calendar.jsx'
 
 //import MoonPhaseDisplay from '../components/MoonPhaseDisplay';
@@ -54,7 +55,7 @@ function App() {
 //8) if Waxing Gibbous Moon is between 0.75 and 1.00 return picture Waxing Gibbous Moon
 //9)if full moon is equal to 1 (full circle again) return picture full moon
 
-  function getMoonImage(moonphase) {
+  function getMoonImageUrl(moonphase) {
     //full moon is equal to 0 
     if (moonphase === 0) {
       return "https://upload.wikimedia.org/wikipedia/commons/b/b5/20110319_Supermoon.jpg";
