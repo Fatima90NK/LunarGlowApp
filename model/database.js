@@ -7,4 +7,5 @@ const client = new MongoClient(uri);
 await client.connect();
 const db = client.db("moon_app"); // Database name
 export const moonCollection = db.collection("moonData");
+export const phaseDescriptionCollection = db.collection("phaseDescriptions");
 
