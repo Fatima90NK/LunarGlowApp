@@ -34,10 +34,6 @@ app.use('/api', indexRouter);//route of the request that we will receive
 app.use('/api/funfacts', funFactsRouter);
 app.use('/api/moon', moonRouter);
 
-app.listen(5000, () => {
-  console.log("Server running on http://localhost:5000");
-});
-
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   res.status(404).json({ error: 'Not found' });

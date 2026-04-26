@@ -1,7 +1,6 @@
 // routes/moon.js
 import express from 'express'; // Importing express
 import { moonCollection, phaseDescriptionCollection } from '../model/database.js';// Importing the MongoDB collections
-import fetch from 'node-fetch'; // Importing node-fetch for making API requests
 import OpenAI from 'openai'; // Importing OpenAI client
 import 'dotenv/config'; // Loading environment variables
 
@@ -9,50 +8,64 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY }); // Initializi
 
 const router = express.Router(); // Creating a new router
 
+// Compute the current moon phase (0 = New Moon, 0.25 = First Quarter,
+// 0.5 = Full Moon, 0.75 = Last Quarter) using a known reference new moon.
+function computeMoonPhase() {
+  // Reference new moon: 6 January 2000 18:14 UTC
+  const knownNewMoon = new Date('2000-01-06T18:14:00Z');
+  const synodicPeriod = 29.53059; // average days per lunar cycle
+  const daysSince = (Date.now() - knownNewMoon.getTime()) / (1000 * 60 * 60 * 24);
+  let phase = (daysSince % synodicPeriod) / synodicPeriod;
+  if (phase < 0) phase += 1;
+  return Math.round(phase * 1000) / 1000;
+}
+
 // GET moon data based on latitude and longitude
 router.get('/:lat/:lon', async (req, res) => { // Route to get moon data for specific lat/lon
   const { lat, lon } = req.params; // Extracting latitude and longitude from request parameters
   const today = new Date().toISOString().split('T')[0]; // Getting today's date in YYYY-MM-DD format
 
   try {
-    // Check if data already exists in MongoDB
-    const cached = await moonCollection.findOne({ lat, lon, date: today });
-    if (cached) return res.json(cached);
+    // Check if data already exists in MongoDB (optional — skipped if DB is unavailable)
+    if (moonCollection) {
+      const cached = await moonCollection.findOne({ lat, lon, date: today });
+      if (cached) return res.json(cached);
+    }
 
-    // Fetch from external API
-    const APIkey = process.env.VISUAL_CROSSING_API_KEY;
-    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=us&key=${APIkey}&include=days&elements=datetime,moonphase,moonrise,moonset`;
-//    console.log("Fetching from URL:", url);
-    const response = await fetch(url);// Making the API request
-    const data = await response.json();// Parsing the JSON response
-    const moonData = { 
+    // Compute moon phase locally — no external API key required
+    const moonphase = computeMoonPhase();
+    const moonData = {
         lat,
         lon,
         date: today,
-        moonphase: data.days[0].moonphase,
-        moonrise: data.days[0].moonrise,
-        moonset: data.days[0].moonset
-    }; // Extracting relevant moon data 
+        moonphase,
+        moonrise: null,
+        moonset: null
+    }; // Building moon data object
 
-    // Store data in MongoDB
-    await moonCollection.insertOne(moonData); // Inserting the new data into the collection
+    // Store data in MongoDB (optional — skipped if DB is unavailable)
+    if (moonCollection) {
+      await moonCollection.insertOne(moonData);
+    }
+
     res.json(moonData); // Sending the moon data as JSON response
   } catch (err) { // Error handling
     console.error(err); // Logging the error
-    res.status(500).json({ error: "Failed to fetch moon data" }); // Sending error response 
+    res.status(500).json({ error: "Failed to fetch moon data" }); // Sending error response
   }
 });
 
 // Maps a moon phase float (0–1) to one of 8 phase name strings
+// Convention: 0 = New Moon, 0.25 = First Quarter, 0.5 = Full Moon, 0.75 = Last Quarter
 function getMoonPhaseLabel(moonPhase) {
-  if (moonPhase === 0 || moonPhase === 1) return "Full Moon";
-  if (moonPhase > 0 && moonPhase < 0.25) return "Waning Gibbous Moon";
-  if (moonPhase === 0.25) return "Last Quarter";
-  if (moonPhase > 0.25 && moonPhase < 0.5) return "Waning Crescent Moon";
-  if (moonPhase === 0.5) return "New Moon";
-  if (moonPhase > 0.5 && moonPhase < 0.75) return "Waxing Crescent Moon";
-  if (moonPhase === 0.75) return "First Quarter Moon";
-  if (moonPhase > 0.75 && moonPhase < 1) return "Waxing Gibbous Moon";
+  if (moonPhase <= 0.025 || moonPhase >= 0.975) return "New Moon";
+  if (moonPhase > 0.025 && moonPhase < 0.225) return "Waxing Crescent Moon";
+  if (moonPhase >= 0.225 && moonPhase <= 0.275) return "First Quarter Moon";
+  if (moonPhase > 0.275 && moonPhase < 0.475) return "Waxing Gibbous Moon";
+  if (moonPhase >= 0.475 && moonPhase <= 0.525) return "Full Moon";
+  if (moonPhase > 0.525 && moonPhase < 0.725) return "Waning Gibbous Moon";
+  if (moonPhase >= 0.725 && moonPhase <= 0.775) return "Last Quarter Moon";
+  if (moonPhase > 0.775 && moonPhase < 0.975) return "Waning Crescent Moon";
   return "Unknown";
 }
 
@@ -69,9 +82,11 @@ router.get('/description', async (req, res) => {
   const month = new Date().getMonth() + 1; // 1–12
 
   try {
-    // Return cached description if available
-    const cached = await phaseDescriptionCollection.findOne({ phase: phaseName, month });
-    if (cached) return res.json({ description: cached.description });
+    // Return cached description if available (optional — skipped if DB is unavailable)
+    if (phaseDescriptionCollection) {
+      const cached = await phaseDescriptionCollection.findOne({ phase: phaseName, month });
+      if (cached) return res.json({ description: cached.description });
+    }
 
     // Generate a new description via OpenAI
     const completion = await openai.chat.completions.create({
@@ -87,8 +102,10 @@ router.get('/description', async (req, res) => {
 
     const description = completion.choices[0].message.content.trim();
 
-    // Store in MongoDB for future requests
-    await phaseDescriptionCollection.insertOne({ phase: phaseName, month, description });
+    // Store in MongoDB for future requests (optional — skipped if DB is unavailable)
+    if (phaseDescriptionCollection) {
+      await phaseDescriptionCollection.insertOne({ phase: phaseName, month, description });
+    }
 
     res.json({ description });
   } catch (err) {
