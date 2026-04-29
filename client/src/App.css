@@ -120,17 +120,14 @@ body {
 
 /* Title */
 #title {
-  position: absolute;
-  left: 0;
-  right: 0;
+  position: relative;
   color: #FFF;
   text-align: center;
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
   font-size: 50px;
   letter-spacing: 10px;
-  margin-top: -60px; /* Adjusts spacing from the top */
-  padding-left: 0px; /* Ensures it's above other elements */
+  margin-top: 20px;
   animation: glow 1.5s infinite alternate;
 }
 

@@ -3,6 +3,7 @@ import express from 'express'; // Importing express
 import { moonCollection, phaseDescriptionCollection } from '../model/database.js';// Importing the MongoDB collections
 import OpenAI from 'openai'; // Importing OpenAI client
 import 'dotenv/config'; // Loading environment variables
+import SunCalc from 'suncalc'; // Importing SunCalc for moon rise/set calculations
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY }); // Initializing OpenAI client
 
@@ -35,25 +36,11 @@ router.get('/:lat/:lon', async (req, res) => { // Route to get moon data for spe
     // Compute moon phase locally — no external API key required
     const moonphase = computeMoonPhase();
 
-    // Fetch moonrise and moonset from the free Open-Meteo API (no key needed)
-    let moonrise = null;
-    let moonset = null;
-    try {
-      const meteoUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=moonrise,moonset&timezone=auto`;
-      const meteoRes = await fetch(meteoUrl);
-      if (meteoRes.ok) {
-        const meteoData = await meteoRes.json();
-        if (meteoData.daily) {
-          // Times come back as "YYYY-MM-DDTHH:MM" – extract just the HH:MM part
-          const rawRise = meteoData.daily.moonrise?.[0];
-          const rawSet = meteoData.daily.moonset?.[0];
-          if (rawRise) moonrise = rawRise.split('T')[1] ?? null;
-          if (rawSet)  moonset  = rawSet.split('T')[1]  ?? null;
-        }
-      }
-    } catch (fetchErr) {
-      console.warn("Could not fetch moonrise/moonset from Open-Meteo:", fetchErr.message);
-    }
+    // Compute moonrise and moonset using SunCalc (no network call, no API key needed)
+    const now = new Date();
+    const moonTimes = SunCalc.getMoonTimes(now, parseFloat(lat), parseFloat(lon));
+    const moonrise = moonTimes.rise ? moonTimes.rise.toISOString() : null;
+    const moonset  = moonTimes.set  ? moonTimes.set.toISOString()  : null;
 
     const moonData = {
         lat,

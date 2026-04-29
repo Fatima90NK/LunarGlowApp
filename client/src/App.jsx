@@ -143,9 +143,9 @@ function App() {
       <p>Today's moon phase is <strong>{getMoonPhaseLabel(moonData.moonphase).phase} </strong></p>
       <img src={getMoonImage(moonData.moonphase)} alt="Moon Phase" width="100"/>
       <div className="container">
-      <p><strong>Moonrise at: </strong> {moonData.moonrise ? moonData.moonrise: "Not available"}</p>
+      <p><strong>Moonrise at: </strong> {moonData.moonrise ? new Date(moonData.moonrise).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "Not available"}</p>
       <p><i>Moonrise is the moment when the Moon becomes visible on the horizon, marking its emergence in the sky.</i></p>
-      <p><strong>Moonset at:</strong> {moonData.moonset ? moonData.moonset : "Not available"}</p>
+      <p><strong>Moonset at:</strong> {moonData.moonset ? new Date(moonData.moonset).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "Not available"}</p>
       <p><i>Moonset occurs when the Moon dips below the horizon, marking its disappearance from view. </i></p>
     </div>
     </div>

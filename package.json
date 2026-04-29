@@ -20,7 +20,8 @@
     "mysql2": "^3.12.0",
     "node-fetch": "^3.3.2",
     "nodemon": "^3.1.9",
-    "openai": "^6.34.0"
+    "openai": "^6.34.0",
+    "suncalc": "^1.9.0"
   },
   "description": "Explanation about the app, what does it show. Steps that are needed to run my app the external API i use, if API key is needed.  List of features",
   "main": "app.js",
