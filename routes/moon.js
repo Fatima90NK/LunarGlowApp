@@ -26,25 +26,48 @@ router.get('/:lat/:lon', async (req, res) => { // Route to get moon data for spe
   const today = new Date().toISOString().split('T')[0]; // Getting today's date in YYYY-MM-DD format
 
   try {
-    // Check if data already exists in MongoDB (optional — skipped if DB is unavailable)
+    // Check if data already exists in MongoDB (skip entries where moonrise was not yet fetched)
     if (moonCollection) {
-      const cached = await moonCollection.findOne({ lat, lon, date: today });
+      const cached = await moonCollection.findOne({ lat, lon, date: today, moonrise: { $ne: null } });
       if (cached) return res.json(cached);
     }
 
     // Compute moon phase locally — no external API key required
     const moonphase = computeMoonPhase();
+
+    // Fetch moonrise and moonset from the free Open-Meteo API (no key needed)
+    let moonrise = null;
+    let moonset = null;
+    try {
+      const meteoUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=moonrise,moonset&timezone=auto`;
+      const meteoRes = await fetch(meteoUrl);
+      if (meteoRes.ok) {
+        const meteoData = await meteoRes.json();
+        if (meteoData.daily) {
+          // Times come back as "YYYY-MM-DDTHH:MM" – extract just the HH:MM part
+          const rawRise = meteoData.daily.moonrise?.[0];
+          const rawSet = meteoData.daily.moonset?.[0];
+          if (rawRise) moonrise = rawRise.split('T')[1] ?? null;
+          if (rawSet)  moonset  = rawSet.split('T')[1]  ?? null;
+        }
+      }
+    } catch (fetchErr) {
+      console.warn("Could not fetch moonrise/moonset from Open-Meteo:", fetchErr.message);
+    }
+
     const moonData = {
         lat,
         lon,
         date: today,
         moonphase,
-        moonrise: null,
-        moonset: null
+        moonrise,
+        moonset
     }; // Building moon data object
 
     // Store data in MongoDB (optional — skipped if DB is unavailable)
     if (moonCollection) {
+      // Remove any stale entry for today before inserting the fresh one
+      await moonCollection.deleteOne({ lat, lon, date: today });
       await moonCollection.insertOne(moonData);
     }
 
